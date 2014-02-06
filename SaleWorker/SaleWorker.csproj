@@ -123,6 +123,7 @@
     <Content Include="Admin\AddUser.aspx" />
     <Content Include="Admin\DeleteUser.aspx" />
     <Content Include="Admin\UpdateUser.aspx" />
+    <Content Include="DailyVisitAdd.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Calendar.aspx" />
     <Content Include="Content\bootstrap-theme.css">
@@ -280,6 +281,13 @@
     </Compile>
     <Compile Include="Calendar.aspx.designer.cs">
       <DependentUpon>Calendar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DailyVisitAdd.aspx.cs">
+      <DependentUpon>DailyVisitAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DailyVisitAdd.aspx.designer.cs">
+      <DependentUpon>DailyVisitAdd.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dataset\WeeklyPlan.Designer.cs">
       <AutoGen>True</AutoGen>
