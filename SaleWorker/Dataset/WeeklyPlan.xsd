@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="WeeklyPlan" targetNamespace="http://tempuri.org/WeeklyPlan.xsd" xmlns:mstns="http://tempuri.org/WeeklyPlan.xsd" xmlns="http://tempuri.org/WeeklyPlan.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="conString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="conString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.conString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="v_weeklyplanTableAdapter" GeneratorDataComponentClassName="v_weeklyplanTableAdapter" Name="v_weeklyplan" UserDataComponentName="v_weeklyplanTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="conString (Web.config)" DbObjectName="SaleDb.dbo.v_weeklyplan" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT docno, plandate, typecustomer, saleid, salename, CustomerId, CustomerName, DistrictName, ProvinceName, Remark FROM dbo.v_weeklyplan</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="docno" DataSetColumn="docno" />
+              <Mapping SourceColumn="plandate" DataSetColumn="plandate" />
+              <Mapping SourceColumn="typecustomer" DataSetColumn="typecustomer" />
+              <Mapping SourceColumn="saleid" DataSetColumn="saleid" />
+              <Mapping SourceColumn="salename" DataSetColumn="salename" />
+              <Mapping SourceColumn="CustomerId" DataSetColumn="CustomerId" />
+              <Mapping SourceColumn="CustomerName" DataSetColumn="CustomerName" />
+              <Mapping SourceColumn="DistrictName" DataSetColumn="DistrictName" />
+              <Mapping SourceColumn="ProvinceName" DataSetColumn="ProvinceName" />
+              <Mapping SourceColumn="Remark" DataSetColumn="Remark" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="WeeklyPlan" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="WeeklyPlan" msprop:Generator_UserDSName="WeeklyPlan">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="v_weeklyplan" msprop:Generator_TableClassName="v_weeklyplanDataTable" msprop:Generator_TableVarName="tablev_weeklyplan" msprop:Generator_TablePropName="v_weeklyplan" msprop:Generator_RowDeletingName="v_weeklyplanRowDeleting" msprop:Generator_RowChangingName="v_weeklyplanRowChanging" msprop:Generator_RowEvHandlerName="v_weeklyplanRowChangeEventHandler" msprop:Generator_RowDeletedName="v_weeklyplanRowDeleted" msprop:Generator_UserTableName="v_weeklyplan" msprop:Generator_RowChangedName="v_weeklyplanRowChanged" msprop:Generator_RowEvArgName="v_weeklyplanRowChangeEvent" msprop:Generator_RowClassName="v_weeklyplanRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="docno" msprop:Generator_ColumnVarNameInTable="columndocno" msprop:Generator_ColumnPropNameInRow="docno" msprop:Generator_ColumnPropNameInTable="docnoColumn" msprop:Generator_UserColumnName="docno" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="plandate" msprop:Generator_ColumnVarNameInTable="columnplandate" msprop:Generator_ColumnPropNameInRow="plandate" msprop:Generator_ColumnPropNameInTable="plandateColumn" msprop:Generator_UserColumnName="plandate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="typecustomer" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columntypecustomer" msprop:Generator_ColumnPropNameInRow="typecustomer" msprop:Generator_ColumnPropNameInTable="typecustomerColumn" msprop:Generator_UserColumnName="typecustomer" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="12" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="saleid" msprop:Generator_ColumnVarNameInTable="columnsaleid" msprop:Generator_ColumnPropNameInRow="saleid" msprop:Generator_ColumnPropNameInTable="saleidColumn" msprop:Generator_UserColumnName="saleid" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="salename" msprop:Generator_ColumnVarNameInTable="columnsalename" msprop:Generator_ColumnPropNameInRow="salename" msprop:Generator_ColumnPropNameInTable="salenameColumn" msprop:Generator_UserColumnName="salename" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CustomerId" msprop:Generator_ColumnVarNameInTable="columnCustomerId" msprop:Generator_ColumnPropNameInRow="CustomerId" msprop:Generator_ColumnPropNameInTable="CustomerIdColumn" msprop:Generator_UserColumnName="CustomerId" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CustomerName" msprop:Generator_ColumnVarNameInTable="columnCustomerName" msprop:Generator_ColumnPropNameInRow="CustomerName" msprop:Generator_ColumnPropNameInTable="CustomerNameColumn" msprop:Generator_UserColumnName="CustomerName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DistrictName" msprop:Generator_ColumnVarNameInTable="columnDistrictName" msprop:Generator_ColumnPropNameInRow="DistrictName" msprop:Generator_ColumnPropNameInTable="DistrictNameColumn" msprop:Generator_UserColumnName="DistrictName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ProvinceName" msprop:Generator_ColumnVarNameInTable="columnProvinceName" msprop:Generator_ColumnPropNameInRow="ProvinceName" msprop:Generator_ColumnPropNameInTable="ProvinceNameColumn" msprop:Generator_UserColumnName="ProvinceName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Remark" msprop:Generator_ColumnVarNameInTable="columnRemark" msprop:Generator_ColumnPropNameInRow="Remark" msprop:Generator_ColumnPropNameInTable="RemarkColumn" msprop:Generator_UserColumnName="Remark" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
