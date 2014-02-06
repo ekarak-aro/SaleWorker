@@ -54,9 +54,10 @@
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Daily Visit
                         <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Add Data</a></li>
+                            <li><a href="DailyVisitAdd.aspx">Add Data</a></li>
                             <li><a href="#">Update Data</a></li>
                             <li><a href="#">Delete Data</a></li>
+                            <li><a href="DailyVisitImp.aspx">List Data</a></li>
                             <li class="divider"></li>
                             <li class="dropdown-header">Report Daily Visit</li>
                             <li><a href="#">Report1</a></li>

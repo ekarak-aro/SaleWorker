@@ -89,6 +89,7 @@
     </form>
     <script type="text/javascript">
         $(document).ready(function () {
+            $("#tbWeeklyPlanNo").prop("disabled", true);
             $("#ddlProvince").prop("disabled", true);
             $("#tbPlanDate").prop("disabled", true);
             $("#tbSaleId").prop("disabled", true);

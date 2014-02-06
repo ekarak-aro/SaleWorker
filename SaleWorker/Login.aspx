@@ -23,11 +23,11 @@
             <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
             <h2 class="form-signin-heading">Please sign in</h2>
 
-            <asp:TextBox ID="tbUsername" runat="server" CssClass="form-control" placeholder="Username" required autofocus OnTextChanged="tbUsername_TextChanged"></asp:TextBox>
+            <asp:TextBox ID="tbUsername" runat="server" CssClass="form-control" placeholder="Username" required="required" autofocus OnTextChanged="tbUsername_TextChanged"></asp:TextBox>
 
             <!--<input type="text" class="form-control" placeholder="Email address" required autofocus>-->
 
-            <asp:TextBox ID="tbPassword" runat="server" CssClass="form-control" placeholder="Password" required TextMode="Password"></asp:TextBox>
+            <asp:TextBox ID="tbPassword" runat="server" CssClass="form-control" placeholder="Password" required="required" TextMode="Password"></asp:TextBox>
             <asp:DropDownList ID="ddlRole" runat="server" CssClass="form-control"></asp:DropDownList>
             <!--<input type="password" class="form-control" placeholder="Password" required>-->
             <asp:CheckBox ID="cbRemember" runat="server" Text="remember-me" CssClass="checkbox" />
