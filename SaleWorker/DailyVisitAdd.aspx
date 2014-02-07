@@ -3,104 +3,312 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <style type="text/css">
-        fieldset.scheduler-border {
-            border: 1px groove #ddd !important;
-            padding: 0 1.4em 1.4em 1.4em !important;
-            margin: 0 0 1.5em 0 !important;
-            -webkit-box-shadow: 0px 0px 0px 0px #000;
-            box-shadow: 0px 0px 0px 0px #000;
-        }
+	<style type="text/css">
+		fieldset.scheduler-border {
+			border: 1px groove #ddd !important;
+			padding: 0 1.4em 1.4em 1.4em !important;
+			margin: 0 0 1.5em 0 !important;
+			-webkit-box-shadow: 0px 0px 0px 0px #000;
+			box-shadow: 0px 0px 0px 0px #000;
+		}
 
-        legend.scheduler-border {
-            font-size: 1.2em !important;
-            font-weight: bold !important;
-            text-align: left !important;
-            width: auto;
-            padding: 0 10px;
-            border-bottom: none;
-        }
+		legend.scheduler-border {
+			font-size: 1.2em !important;
+			font-weight: bold !important;
+			text-align: left !important;
+			width: auto;
+			padding: 0 10px;
+			border-bottom: none;
+		}
 
-        .modal-body {
-            max-height: 500px;
-            overflow: auto;
-        }
-    </style>
-    <form runat="server" id="frm1" class="form-horizontal">
-        <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></ajaxToolkit:ToolkitScriptManager>
-        <div class="form-group">
-            <div class="col-sm-6">
-                <label class="control-label">Weeklyplan No :</label>
-                <asp:TextBox ID="tbWeeklyPlanNo" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-            <div class="col-sm-6">
-                <label class="control-label">Plan Date :</label>
-                <asp:TextBox ID="tbPlanDate" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-6">
-                <label class="control-label">Sale ID :</label>
-                <asp:TextBox ID="tbSaleId" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-            <div class="col-sm-6">
-                <label class="control-label">Sale Name :</label>
-                <asp:TextBox ID="tbSaleName" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-6">
-                <label class="control-label">Type Customer :</label>
-                <asp:TextBox ID="tbTypeCustomer" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-            <div class="col-sm-6">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-6">
-                <label class="control-label">Customer ID :</label>
-                <asp:TextBox ID="tbCustId" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-            <div class="col-sm-6">
-                <label class="control-label">Customer Name :</label>
-                <asp:TextBox ID="tbCustName" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-6">
-                <label class="control-label">District ID :</label>
-                <asp:TextBox ID="tbDistrictId" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-            <div class="col-sm-6">
-                <label class="control-label">District Name :</label>
-                <asp:TextBox ID="tbDistrictName" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-6">
-                <label class="control-label">Province ID :</label>
-                <asp:TextBox ID="tbProvinceId" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-            <div class="col-sm-6">
-                <label class="control-label">Province Name :</label>
-                <asp:TextBox ID="tbProvinceName" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-        </div>
-    </form>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#tbWeeklyPlanNo").prop("disabled", true);
-            $("#ddlProvince").prop("disabled", true);
-            $("#tbPlanDate").prop("disabled", true);
-            $("#tbSaleId").prop("disabled", true);
-            $("#tbSaleName").prop("disabled", true);
-            $("#tbTypeCustomer").prop("disabled", true);
-            $("#tbCustId").prop("disabled", true);
-            $("#tbCustName").prop("disabled", true);
-            $("#tbDistrictId").prop("disabled", true);
-            $("#tbDistrictName").prop("disabled", true);
-            $("#tbProvinceId").prop("disabled", true);
-            $("#tbProvinceName").prop("disabled", true);
-        });
-    </script>
+		.modal-body {
+			max-height: 500px;
+			overflow: auto;
+		}
+
+		.scrollToTop {
+			width: 125px;
+			height: 130px;
+			padding: 10px;
+			text-align: center;
+			background: whiteSmoke;
+			font-weight: bold;
+			color: aqua;
+			text-decoration: none;
+			position: fixed;
+			top: 75px;
+			right: 40px;
+			display: none;
+			background: url('arrow_up.png') no-repeat 0px 20px;
+		}
+
+		.scrollToTop:hover {
+			text-decoration: none;
+		}
+	</style>
+	<form runat="server" id="frm1" class="form-horizontal">
+		<ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></ajaxToolkit:ToolkitScriptManager>
+		<div class="form-group">
+			<div class="col-sm-6">
+				<label class="control-label">Weeklyplan No :</label>
+				<asp:TextBox ID="tbWeeklyPlanNo" runat="server" CssClass="form-control"></asp:TextBox>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">Plan Date :</label>
+				<asp:TextBox ID="tbPlanDate" runat="server" CssClass="form-control"></asp:TextBox>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-6">
+				<label class="control-label">Sale ID :</label>
+				<asp:TextBox ID="tbSaleId" runat="server" CssClass="form-control"></asp:TextBox>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">Sale Name :</label>
+				<asp:TextBox ID="tbSaleName" runat="server" CssClass="form-control"></asp:TextBox>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-6">
+				<label class="control-label">Type Customer :</label>
+				<asp:TextBox ID="tbTypeCustomer" runat="server" CssClass="form-control"></asp:TextBox>
+			</div>
+			<div class="col-sm-6">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-6">
+				<label class="control-label">Customer ID :</label>
+				<asp:TextBox ID="tbCustId" runat="server" CssClass="form-control"></asp:TextBox>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">Customer Name :</label>
+				<asp:TextBox ID="tbCustName" runat="server" CssClass="form-control"></asp:TextBox>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-6">
+				<label class="control-label">District ID :</label>
+				<asp:TextBox ID="tbDistrictId" runat="server" CssClass="form-control"></asp:TextBox>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">District Name :</label>
+				<asp:TextBox ID="tbDistrictName" runat="server" CssClass="form-control"></asp:TextBox>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-6">
+				<label class="control-label">Province ID :</label>
+				<asp:TextBox ID="tbProvinceId" runat="server" CssClass="form-control"></asp:TextBox>
+			</div>
+			<div class="col-sm-6">
+				<label class="control-label">Province Name :</label>
+				<asp:TextBox ID="tbProvinceName" runat="server" CssClass="form-control"></asp:TextBox>
+			</div>
+		</div>
+		<br />
+		<hr />
+		<fieldset class="scheduler-border">
+			<legend class="scheduler-border">ประเภทกิจกรรม </legend>
+
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs">
+				<li><a href="#customer" data-toggle="tab">ลูกค้า</a></li>
+				<li><a href="#item" data-toggle="tab">สินค้า</a></li>
+				<li><a href="#other" data-toggle="tab">อื่นๆ</a></li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div class="tab-pane active" id="customer">
+					<div class="form-group">
+						<div class="col-sm-12">
+							<asp:CheckBoxList ID="cblCustomer" runat="server">
+								<asp:ListItem Value="customer1">เยี่ยมลูกค้า --- แนะนำตัว</asp:ListItem>
+								<asp:ListItem Value="customer2">เยี่ยมลูกค้า --- สร้างความสัมพันธ์ / ให้ของขวัญ</asp:ListItem>
+								<asp:ListItem Value="customer3">เยี่ยมลูกค้า --- วางบิล / รับเช็ค</asp:ListItem>
+								<asp:ListItem Value="customer4">เยี่ยมลูกค้า --- ซื้อซอง / ยื่นซองงานประมูล</asp:ListItem>
+								<asp:ListItem Value="customer5">เยี่ยมลูกค้า --- ส่งสินค้าฉุกเฉิน</asp:ListItem>
+							</asp:CheckBoxList>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane" id="item">
+					<div class="form-group">
+						<div class="col-sm-6">
+							<asp:DropDownList ID="ddlTypeItem" runat="server" CssClass="form-control">
+								<asp:ListItem Value="0">กรุณาเลือก</asp:ListItem>
+								<asp:ListItem Value="1">แนะนำสินค้า</asp:ListItem>
+								<asp:ListItem Value="2">สาธิตการใช้งาน</asp:ListItem>
+								<asp:ListItem Value="3">แก้ไขปัญหาสินค้า</asp:ListItem>
+							</asp:DropDownList>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-6">
+							<label class="control-label">รหัสสินค้า :</label>
+							<asp:TextBox ID="tbItemCode" runat="server" CssClass="form-control"></asp:TextBox>
+							<button class="btn btn-primary" data-toggle="modal" data-target="#modalItem">
+								ค้นหารหัสสินค้า
+							</button>
+							<!-- Modal -->
+							<div class="modal fade" id="modalItem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+											<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+										</div>
+										<div class="modal-body">
+											<div class="form-group">
+												<div class="col-sm-6">
+													<asp:DropDownList ID="ddlItemSearchType" runat="server" CssClass="form-control">
+														<asp:ListItem Value="0">ItemCode</asp:ListItem>
+														<asp:ListItem Value="1">ItemDesc</asp:ListItem>
+													</asp:DropDownList>
+												</div>
+												<div class="col-sm-6">
+													<asp:TextBox ID="tbSearchItem" runat="server" CssClass="form-control"></asp:TextBox>
+												</div>
+											</div>
+											<div class="form-group">
+												<div style="text-align:center">
+													<asp:Button ID="btSearchItem" runat="server" Text="Search" CssClass="btn btn-primary" OnClick="btSearchItem_Click" />
+												</div>
+											</div>
+											<div class="form-group">
+												<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+													<ContentTemplate>
+														<asp:GridView ID="gvSearchItem" runat="server" CssClass="table table-bordered table-hover table-responsive" AllowPaging="true" AutoGenerateColumns="false"
+                                                            PageSize="10" >
+                                                            <Columns>
+
+                                                            </Columns>
+														</asp:GridView>
+													</ContentTemplate>
+													<Triggers>
+														<asp:AsyncPostBackTrigger ControlID="btSearchItem" />
+													</Triggers>
+												</asp:UpdatePanel>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>											
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6">
+                            <br />
+                            <br />
+                            <asp:Label ID="lbItemDesc" runat="server" Text="ItemDesc"></asp:Label>
+						</div>
+					</div>
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label class="control-label">จำนวนคาดว่าที่ต้องใช้ :</label>
+                            <asp:TextBox ID="tbUnit" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="col-sm-6">
+                            <br />
+                            <br />
+                            <asp:Label ID="lbUom" runat="server" Text="UOM"></asp:Label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label class="control-label">ผลการตอบรับลูกค้า :</label>
+                            <asp:DropDownList ID="ddlReactionCus" runat="server" CssClass="form-control">
+								<asp:ListItem Value="0">รอลูกค้าตัดสินใจ</asp:ListItem>
+								<asp:ListItem Value="1">อนุมัติแล้วรอ PO</asp:ListItem>
+								<asp:ListItem Value="2">ออก PO เรียบร้อย</asp:ListItem>
+								<asp:ListItem Value="3">จัดการคำขอเรียบร้อย</asp:ListItem>
+                                <asp:ListItem Value="4">ลูกค้าปฏิเสธ --- ไม่มีสินค้า/ไม่เพียงพอ</asp:ListItem>
+                                <asp:ListItem Value="5">ลูกค้าปฏิเสธ --- ราคา</asp:ListItem>
+                                <asp:ListItem Value="6">ลูกค้าปฏิเสธ --- คุณภาพ</asp:ListItem>
+                                <asp:ListItem Value="7">ลูกค้าปฏิเสธ --- Lead Time นานเกินไป</asp:ListItem>
+                                <asp:ListItem Value="8">ลูกค้าขอใบเสนอราคา</asp:ListItem>
+                                <asp:ListItem Value="9">ลูกค้าขอดูตัวอย่าง</asp:ListItem>
+                                <asp:ListItem Value="10">ลูกค้าขอสาธิตการใช้งาน</asp:ListItem>
+                                <asp:ListItem Value="11">ลูกค้าขอเอกสารเพิ่มเติม</asp:ListItem>
+                                <asp:ListItem Value="12">ลูกค้าขอ test สินค้า</asp:ListItem>
+                                <asp:ListItem Value="13">ลูกค้าขอยกเลิก PO</asp:ListItem>
+                                <asp:ListItem Value="14">ลูกค้าขอคืนสินค้า</asp:ListItem>
+                                <asp:ListItem Value="15">ลูกค้าขอเปลี่ยนสินค้า</asp:ListItem>
+							</asp:DropDownList>
+                        </div>
+                        <div class="col-sm-6"></div>
+                    </div>
+                    <div class="form-group">
+                        <div style="text-align:center">
+                            <asp:Button ID="btAddItem" runat="server" Text="AddItem" CssClass="btn btn-primary"  />
+                        </div>
+                    </div>
+				</div>
+				<div class="tab-pane" id="other">
+					<div class="form-group">
+						<div class="col-sm-12">
+							<asp:CheckBoxList ID="cblOther" runat="server">
+								<asp:ListItem Value="other1">ประชุม / อบรม / สัมนา</asp:ListItem>
+								<asp:ListItem Value="other2">กิจกรรมบริษัท ออกงาน Exhibition</asp:ListItem>
+							</asp:CheckBoxList>
+						</div>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+
+
+
+		<%--<fieldset class="scheduler-border">
+			<legend class="scheduler-border">ลูกค้า :</legend>
+			<br />
+			<div style="text-align: center">
+				<asp:Button ID="btDelete" runat="server" Text="Delete" CssClass="btn btn-warning" OnClick="btDelete_Click" OnClientClick="return ConfirmDelete();" />
+			</div>
+		</fieldset>
+		<fieldset class="scheduler-border">
+			<legend class="scheduler-border">สินค้า :</legend>
+			<br />
+			<div style="text-align: center">
+				<asp:Button ID="Button1" runat="server" Text="Delete" CssClass="btn btn-warning" OnClick="btDelete_Click" OnClientClick="return ConfirmDelete();" />
+			</div>
+		</fieldset>--%>
+		<div class="hidden-xs hidden-sm">
+			<a href="#" class="scrollToTop">Scroll To Top</a>
+		</div>
+	</form>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$("#tbWeeklyPlanNo").prop("disabled", true);
+			$("#ddlProvince").prop("disabled", true);
+			$("#tbPlanDate").prop("disabled", true);
+			$("#tbSaleId").prop("disabled", true);
+			$("#tbSaleName").prop("disabled", true);
+			$("#tbTypeCustomer").prop("disabled", true);
+			$("#tbCustId").prop("disabled", true);
+			$("#tbCustName").prop("disabled", true);
+			$("#tbDistrictId").prop("disabled", true);
+			$("#tbDistrictName").prop("disabled", true);
+			$("#tbProvinceId").prop("disabled", true);
+			$("#tbProvinceName").prop("disabled", true);
+			$("#tbItemCode").prop("disabled", true);
+
+			//Check to see if the window is top if not then display button
+			$(window).scroll(function () {
+				if ($(this).scrollTop() > 100) {
+					$('.scrollToTop').fadeIn();
+				} else {
+					$('.scrollToTop').fadeOut();
+				}
+			});
+
+			//Click event to scroll to top
+			$('.scrollToTop').click(function () {
+				$('html, body').animate({ scrollTop: 0 }, 800);
+				return false;
+			});
+		});
+	</script>
 </asp:Content>

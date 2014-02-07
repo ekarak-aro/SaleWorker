@@ -123,6 +123,7 @@
     <Content Include="Admin\AddUser.aspx" />
     <Content Include="Admin\DeleteUser.aspx" />
     <Content Include="Admin\UpdateUser.aspx" />
+    <Content Include="arrow_up.png" />
     <Content Include="DailyVisitAdd.aspx" />
     <Content Include="DailyVisitImp.aspx" />
     <Content Include="favicon.ico" />

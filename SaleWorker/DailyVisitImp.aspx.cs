@@ -32,7 +32,8 @@ namespace SaleWorker
                     cmd.Connection = conn;
                     cmd.CommandText = "select distinct a.id,a.docno,a.plandate,a.saleid,a.salename,a.customerid,a.customername from weeklyplan a left join webpages_Membership b " +
                     " on a.saleid = b.CodeSLSP " +
-                    " where recordstatus = 'active' and a.plandate <= convert(date,getdate()) and b.useractivedirectory = @user and a.plandate >= convert(date,DATEADD(m,-1,getdate())) ";
+                    " where recordstatus = 'active' and a.plandate <= convert(date,getdate()) and b.useractivedirectory = @user and a.plandate >= convert(date,DATEADD(m,-1,getdate())) " +
+                    " and not exists (select * from DailyVisit where IdWeeklyPlan = a.id and DailyVisit.recordstatus = 'active')";
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.Clear();
                     var userEncrypt = new StringVarious();
@@ -48,6 +49,7 @@ namespace SaleWorker
                             gvitem.DataSource = dt;
                             gvitem.DataBind();
                         }
+                        dr.Close();
                     }
                     catch (Exception)
                     {
