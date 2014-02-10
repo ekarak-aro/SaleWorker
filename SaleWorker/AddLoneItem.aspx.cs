@@ -69,45 +69,7 @@ namespace SaleWorker
 
             }
         }
-
-        protected void Onclick(object sender, EventArgs e)
-        {
-            using (SqlConnection conn = new SqlConnection(strConnStringAccpac))
-            {
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = conn;
-                    cmd.CommandText = "select top 1 IDCUST,NAMECUST,AMTCRLIMT - AMTBALDUEH as credit   from arcus where IDCUST = @idCust and swactv = 1";
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.Clear();
-                    cmd.Parameters.Add("@idCust", SqlDbType.NVarChar).Value = tbCusCode.Text;
-                    SqlDataReader dr;
-                    conn.Open();
-                    dr = cmd.ExecuteReader();
-                    if (dr.HasRows)
-                    {
-                        DataTable dt = new DataTable();
-                        dt.Load(dr);
-                        lbCustName.Text = dt.Rows[0][1].ToString();
-                        lbCustName.ForeColor = System.Drawing.Color.Black;
-                        lbCredit.Text = string.Format("{0:F2}", Convert.ToDecimal(dt.Rows[0][2].ToString()));
-                        //lbCredit.Text = dt.Rows[0][2].ToString();
-                        lbCredit.ForeColor = System.Drawing.Color.Blue;
-                    }
-                    else
-                    {
-                        lbCustName.Text = "Customer Desc Not Found";
-                        lbCustName.ForeColor = System.Drawing.Color.Red;
-                        tbCusCode.Text = "";
-                        lbCredit.Text = "0";
-                    }
-                    dr.Close();
-                }
-            }
-        }
-
-
-
+        
 
         private void MessageBox(string msg)
         {
@@ -385,14 +347,14 @@ namespace SaleWorker
                         cmd.CommandText = "select a.itemno,descrip,uom,price,b.LOCATION,(b.QTYONHAND-b.QTYSHNOCST)+(b.QTYRENOCST - b.QTYCOMMIT) as stockUnit from  Pricelist.dbo.T_Pricelist a left join iciloc b on " +
                             " a.ITEMNO collate thai_bin=b.ITEMNO collate thai_bin" +
                             " where LOCATION = @location " +
-                            " and (QTYONHAND-QTYSHNOCST)+(QTYRENOCST - QTYCOMMIT) > 0 and a.itemno like  @search + '%'";
+                            " and (QTYONHAND-QTYSHNOCST)+(QTYRENOCST - QTYCOMMIT) > 0 and a.itemno like '%' + @search + '%'";
                     }
                     else if (ddlSearchTypeItem.SelectedValue == "ItemDesc")
                     {
                         cmd.CommandText = "select a.itemno,descrip,uom,price,b.LOCATION,(b.QTYONHAND-b.QTYSHNOCST)+(b.QTYRENOCST - b.QTYCOMMIT) as stockUnit from  Pricelist.dbo.T_Pricelist a left join iciloc b on " +
                             " a.ITEMNO collate thai_bin=b.ITEMNO collate thai_bin" +
                             " where LOCATION = @location " +
-                            " and (QTYONHAND-QTYSHNOCST)+(QTYRENOCST - QTYCOMMIT) > 0 and a.descrip like  @search + '%'";
+                            " and (QTYONHAND-QTYSHNOCST)+(QTYRENOCST - QTYCOMMIT) > 0 and a.descrip like '%' + @search + '%'";
 
                     }
 
@@ -436,10 +398,11 @@ namespace SaleWorker
 
         protected void gvSearchItem_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            GridViewRow gvr = (GridViewRow)((Control)e.CommandSource).NamingContainer;
-            int rowIndex = gvr.RowIndex;
+           
             if (e.CommandName == "select")
             {
+                GridViewRow gvr = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+                int rowIndex = gvr.RowIndex;
                 if (ViewState["ChooseItem"] == null)
                 {
                     DataTable dt = new DataTable();
@@ -556,6 +519,107 @@ namespace SaleWorker
             ViewState["ChooseItem"] = dt;
             gvItem.DataSource = ViewState["ChooseItem"];
             gvItem.DataBind();
+        }
+
+        protected void gvCustomer_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvCustomer.PageIndex = e.NewPageIndex;
+            //gvCustomer.SelectedIndex = -1;
+            gvCustomer.DataSource = ViewState["tableSearcust"];
+            gvCustomer.DataBind();           
+        }
+
+        protected void gvCustomer_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            
+            if (e.CommandName == "select")
+            {
+                GridViewRow gvr = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+                int rowIndex = gvr.RowIndex;
+                tbCusCode.Text = gvCustomer.Rows[rowIndex].Cells[0].Text;
+                //tbCusCode.Enabled = false;
+                lbCustName.ForeColor = System.Drawing.Color.Black;
+                lbCustName.Text = gvCustomer.Rows[rowIndex].Cells[1].Text;
+                lbCredit.Text = string.Format("{0:F2}", Convert.ToDecimal(gvCustomer.Rows[rowIndex].Cells[2].Text));
+                lbCredit.ForeColor = System.Drawing.Color.Blue;
+                
+            }
+        }
+
+        protected void btSearchCustGV_Click(object sender, EventArgs e)
+        {
+            if (tbSearchCust.Text.Length == 0)
+            {
+                msgbx("Please fill data");
+                return;
+            }
+            using (SqlConnection conn = new SqlConnection(strConnStringAccpac))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+                    if (ddlTypeSearchCust.SelectedValue == "CustomerCode")
+                    {
+                        cmd.CommandText = "select IDCUST,ltrim(rtrim(NAMECUST)) as namecust,AMTCRLIMT - AMTBALDUEH as credit   from arcus where  swactv = 1 and AMTCRLIMT - AMTBALDUEH > 0 and IDCUST like '%' + @search + '%'";
+                    }
+                    else if (ddlTypeSearchCust.SelectedValue == "CustomerDesc")
+                    {
+                        cmd.CommandText = "select IDCUST,ltrim(rtrim(NAMECUST)) as namecust,AMTCRLIMT - AMTBALDUEH as credit   from arcus where  swactv = 1 and AMTCRLIMT - AMTBALDUEH > 0 and NAMECUST like '%' + @search + '%'"; ;
+
+                    }
+
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.Add("@search", SqlDbType.NVarChar).Value = tbSearchCust.Text;
+                    DataSet ds = new DataSet();
+                    SqlDataReader dr;
+                    conn.Open();
+                    dr = cmd.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        DataTable dt = new DataTable();
+                        dt.Load(dr);
+                        ViewState["tableSearcust"] = dt;
+                        gvCustomer.DataSource = ViewState["tableSearcust"];
+                        gvCustomer.DataBind();
+                    }
+                    else
+                    {
+                        //BingEmpyGridViewWithHeader(gvCustomer, ds, "No data found");
+                        msgbx("ไม่พบลูกค้า");
+                        //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Not found data" + "');", true);                   
+                        gvCustomer.DataSource = null;
+                        gvCustomer.DataBind();
+                    }
+                    dr.Close();
+                }
+            }
+        }
+        protected void BingEmpyGridViewWithHeader(GridView grd, DataSet ds, String msg)
+        {
+            try
+            {
+                if (ds.Tables[0].Rows.Count == 0)
+                {
+                    //Add a blank row to the dataset
+                    ds.Tables[0].Rows.Add(ds.Tables[0].NewRow());
+                    //Bind the DataSet to the GridView
+                    grd.DataSource = ds;
+                    grd.DataBind();
+                    //Get the number of columns to know what the Column Span should be
+                    int columnCount = grd.Rows[0].Cells.Count;
+                    //Call the clear method to clear out any controls that you use in the columns.  E.g If you are using dropdown list etc. in any of the column then it is necessary.
+                    grd.Rows[0].Cells.Clear();
+                    grd.Rows[0].Cells.Add(new TableCell());
+                    grd.Rows[0].Cells[0].ColumnSpan = columnCount;
+                    grd.Rows[0].Cells[0].Text = "<font color=Red><b><center>" + msg + "</center></b></font>";
+
+                }
+            }
+            catch (Exception ex)
+            {
+                //Do your exception handling here
+            }
         }
 
 

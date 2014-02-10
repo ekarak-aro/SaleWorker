@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">   
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <style type="text/css">
         fieldset.scheduler-border {
             border: 1px groove #ddd !important;
@@ -69,7 +69,7 @@
                             <div class="form-group">
                                 <div class="col-sm-6">
                                     <label class="control-label">จังหวัด :</label>
-                                    <asp:DropDownList ID="ddlNewProvince" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlNewProvince_SelectedIndexChanged"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlNewProvince" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlNewProvince_SelectedIndexChanged" ></asp:DropDownList>
                                 </div>
                                 <div class="col-sm-6">
                                     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
@@ -82,7 +82,7 @@
                                         </Triggers>
                                     </asp:UpdatePanel>
                                 </div>
-                            </div>                          
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -98,35 +98,91 @@
         </div>
 
         <div class="form-group">
-            <div class="col-sm-6">
-                <label class="control-label">Customer ID :</label>
-                <asp:TextBox ID="tbCustId" runat="server" CssClass="form-control" placeholder="Customer ID"></asp:TextBox>
-                <asp:Button ID="btSearchCust" runat="server" Text="Search Customer" CssClass="btn btn-info" OnClick="btSearchCust_Click" />
-            </div>
-            <div class="col-sm-6">
-                <br />
-                <br />
-                <asp:UpdatePanel ID="UpdatePanel3" runat="server">
-                    <ContentTemplate>
+            <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                <ContentTemplate>
+                    <div class="col-sm-6">
+                        <label class="control-label">Customer ID :</label>
+                        <asp:TextBox ID="tbCustId" runat="server" CssClass="form-control" placeholder="Customer ID" disabled="disabled"></asp:TextBox>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#modalCustomer" id="btSearchCust1">
+                            Search Customer
+                        </button>
+                    </div>
+                    <div class="col-sm-6">
+                        <br />
+                        <br />
                         <asp:Label ID="lbCustomer" runat="server" Text="Customer Desc" CssClass="control-label"></asp:Label>
-                    </ContentTemplate>
-                    <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="btSearchCust" />
-                    </Triggers>
-                </asp:UpdatePanel>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
 
+        <div class="modal fade" id="modalCustomer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel1">ค้นหาลูกค้า</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <asp:DropDownList ID="ddlTypeSearchCust" runat="server" CssClass="form-control">
+                                    <asp:ListItem Selected="True">CustomerCode</asp:ListItem>
+                                    <asp:ListItem>CustomerDesc</asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-sm-6">
+                                <asp:TextBox ID="tbSearchCust" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div style="text-align: center">
+                                <asp:Button ID="btSearchCustGV" runat="server" Text="SearchCust" CssClass="btn btn-primary" OnClick="btSearchCustGV_Click" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <asp:UpdatePanel ID="UpdatePanel6" runat="server">
+                                <ContentTemplate>
+                                    <asp:GridView ID="gvCustomer" runat="server" class="table table-bordered table-hover table-condensed table-responsive"
+                                        AutoGenerateColumns="False" AllowPaging="True" DataKeyNames="idcust"
+                                        PagerSettings-Position="TopAndBottom" PagerSettings-Mode="NumericFirstLast" OnPageIndexChanging="gvCustomer_PageIndexChanging" OnRowCommand="gvCustomer_RowCommand">
+                                        <Columns>
+                                            <asp:BoundField DataField="idcust" HeaderText="ID Customer" />
+                                            <asp:BoundField DataField="namecust" HeaderText="Name customer" />                                            
+                                            <asp:BoundField DataField="namecity" HeaderText="Name customer" />   
+                                            <asp:BoundField DataField="codestte" HeaderText="Name customer" />   
+                                            <asp:TemplateField HeaderText="Select Data">
+                                                <ItemTemplate>
+                                                    <asp:Button ID="btSelectDataCustomer" runat="server" Text="Select" CommandName="select" class="btn btn-info" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                        </Columns>
+                                        <PagerSettings Mode="NextPrevious" Position="TopAndBottom" />
+                                    </asp:GridView>
+                                </ContentTemplate>
+                                <Triggers>
+                                    <asp:AsyncPostBackTrigger ControlID="btSearchCustGV" />
+                                    <asp:AsyncPostBackTrigger ControlID="gvCustomer" />
+                                </Triggers>
+                            </asp:UpdatePanel>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-6">
                 <label class="control-label">จังหวัด :</label>
-                <asp:DropDownList ID="ddlProvince" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlProvince_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
+                <asp:DropDownList ID="ddlProvince" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlProvince_SelectedIndexChanged" AutoPostBack="True" disabled="disabled"></asp:DropDownList>
             </div>
             <div class="col-sm-6">
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
                         <label class="control-label">อำเภอ :</label>
-                        <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control"></asp:DropDownList>
+                        <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" disabled="disabled"></asp:DropDownList>
                     </ContentTemplate>
                     <Triggers>
                         <asp:AsyncPostBackTrigger ControlID="ddlProvince" />
@@ -147,38 +203,33 @@
         <div style="text-align: center">
             <asp:Button ID="btAdd" runat="server" Text="Add Data" CssClass="btn btn-info" OnClick="btAdd_Click" />
             <button type="button" class="btn btn-default" id="btClear">
-                <span class="glyphicon glyphicon-remove"></span> Clear</button>            
+                <span class="glyphicon glyphicon-remove"></span>Clear</button>
         </div>
     </form>
     <script type="text/javascript">
-        $(document).ready(function () {           
-
+        $(document).ready(function () {            
             $("#ddlTypeCust").change(function () {
                 if ($("#ddlTypeCust").val() == 1) {
-                    $("#ddlProvince").prop("disabled", false);
-                    $("#ddlDistrict").prop("disabled", false);
-                    $("#btSearchCust").prop("disabled", false);
-                    $("#tbCustId").prop("disabled", false);
-                    $("#btSearchCust").prop("disabled", false);
+                    $("#ddlProvince").prop("disabled", true);
+                    $("#ddlProvince").prop("selectedIndex", 0);
+                    $("#ddlDistrict").prop("disabled", true);
+                    $("#ddlProvince").prop("selectedIndex", 0);                                                      
                     $("#btNewCustt").hide();
-
                 } else if ($("#ddlTypeCust").val() == 2) {
                     $("#btNewCustt").show();
                     $("#ddlProvince").prop("disabled", true);
                     $("#ddlProvince").prop("selectedIndex", 0);
                     $("#ddlDistrict").prop("disabled", true);
-                    $("#ddlProvince").prop("selectedIndex", 0);
-                    $("#tbCustId").prop("disabled", true);
-                    $("#lbCustomer").html("Customer Desc");
-                    $("#btSearchCust").prop("disabled", true);
+                    $("#ddlProvince").prop("selectedIndex", 0);                    
+                    $("#lbCustomer").html("Customer Desc");                    
                     $("#tbCustId").val("");
                 }
                 //alert(typeval);
-            });
-            $("#btSearchCust").click(function () {
-                $("#ddlProvince").prop("disabled", true);
-                $("#ddlDistrict").prop("disabled", true);
-            });
+            });           
+            //$("#btSelectDataCustomer").click(function () {
+            //    $("#ddlProvince").prop("disabled", true);
+            //    $("#ddlDistrict").prop("disabled", true);
+            //});          ​
             $("#btClear").click(function () {
                 $("#tbDate").val("");
                 $("#ddlTypeCust").val("2");
@@ -195,7 +246,7 @@
                 $("#lbCustomer").css('color', "black");
                 $("#tbRemark").val("");
             });
-            
+
         });
     </script>
 </asp:Content>

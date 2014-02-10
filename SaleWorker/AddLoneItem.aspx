@@ -32,23 +32,85 @@
         <div class="page-header text-center">
             <h1 id="Header">โปรแกรมแจ้งยืมสินค้าที่มีอยู่ใน Stock</h1>
         </div>
-        <div class="row">
-            <asp:Label ID="Label1" runat="server" Text="ชื่อบริษัท : " class="col-sm-2 control-label"></asp:Label>
+        <div class="form-group">
             <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                 <ContentTemplate>
-                    <div class="col-sm-2 col-lg-2 col-md-2">
-                        <asp:TextBox ID="tbCusCode" runat="server" class="form-control" placeholder="Customer Code" required="required"></asp:TextBox>
+                    <div class="col-sm-6">
+                        <label class="control-label">ชื่อบริษัท :</label>
+                        <asp:TextBox ID="tbCusCode" runat="server" class="form-control" placeholder="Customer Code" disabled="disabled"></asp:TextBox>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#modalCustomer" id="btSearchCust">
+                            Search Customer
+                        </button>
                     </div>
-                    <asp:Button ID="btSearchCust" runat="server" Text="Search Customer" class="btn btn-default btn-default col-sm-2" OnClick="Onclick" />
-                    <div class="col-sm-3 col-lg-3 col-md-3">
+                    <div class="col-sm-6">
+                        <br />
+                        <br />
                         <asp:Label ID="lbCustName" runat="server" Text="Customer Des" class="control-label"></asp:Label>
                     </div>
                 </ContentTemplate>
-                <Triggers>
-                    <asp:AsyncPostBackTrigger ControlID="btSearchCust" />
-                </Triggers>
             </asp:UpdatePanel>
         </div>
+        <div class="row">
+        </div>
+
+        <div class="modal fade" id="modalCustomer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel1">ค้นหาลูกค้า ที่มีเครดิตเท่านั้น</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <asp:DropDownList ID="ddlTypeSearchCust" runat="server" CssClass="form-control">
+                                    <asp:ListItem Selected="True">CustomerCode</asp:ListItem>
+                                    <asp:ListItem>CustomerDesc</asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-sm-6">
+                                <asp:TextBox ID="tbSearchCust" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div style="text-align: center">
+                                <asp:Button ID="btSearchCustGV" runat="server" Text="SearchCust" CssClass="btn btn-primary" OnClick="btSearchCustGV_Click" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <asp:UpdatePanel ID="UpdatePanel6" runat="server">
+                                <ContentTemplate>
+                                    <asp:GridView ID="gvCustomer" runat="server" class="table table-bordered table-hover table-condensed table-responsive"
+                                        AutoGenerateColumns="False" AllowPaging="True" DataKeyNames="idcust"
+                                        PagerSettings-Position="TopAndBottom" PagerSettings-Mode="NumericFirstLast" OnPageIndexChanging="gvCustomer_PageIndexChanging" OnRowCommand="gvCustomer_RowCommand">
+                                        <Columns>
+                                            <asp:BoundField DataField="idcust" HeaderText="ID Customer" />
+                                            <asp:BoundField DataField="namecust" HeaderText="Name customer" />
+                                            <asp:BoundField DataField="credit" HeaderText="credit" />
+                                            <asp:TemplateField HeaderText="Select Data">
+                                                <ItemTemplate>
+                                                    <asp:Button ID="btSelectDataCustomer" runat="server" Text="Select" CommandName="select" class="btn btn-info" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                        </Columns>
+                                        <PagerSettings Mode="NextPrevious" Position="TopAndBottom" />
+                                    </asp:GridView>
+                                </ContentTemplate>
+                                <Triggers>
+                                    <asp:AsyncPostBackTrigger ControlID="btSearchCustGV" />
+                                    <asp:AsyncPostBackTrigger ControlID="gvCustomer" />
+                                </Triggers>
+                            </asp:UpdatePanel>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <br />
         <div class="row">
             <asp:Label ID="Label2" runat="server" Text="ผู้ขอยืมสินค้า : " class="col-sm-2 control-label"></asp:Label>
@@ -69,7 +131,7 @@
                     <div class="modal-content ">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Search Item</h4>
+                            <h4 class="modal-title" id="myModalLabel">Search Item ที่มีอยู่ในคลังสินค้าเท่านั้น</h4>
                         </div>
                         <div class="modal-body">
                             <div class="row">
@@ -110,8 +172,8 @@
                                             PagerSettings-Position="TopAndBottom" PagerSettings-Mode="NumericFirstLast">
                                             <Columns>
                                                 <asp:BoundField DataField="itemno" HeaderText="Item No" />
-                                                <asp:BoundField DataField="descrip" HeaderText="Item Description" ItemStyle-Width="10%" ItemStyle-Wrap="true"/>
-                                                <asp:BoundField DataField="uom" HeaderText="Uom" ItemStyle-Width="30%"/>
+                                                <asp:BoundField DataField="descrip" HeaderText="Item Description" ItemStyle-Width="10%" ItemStyle-Wrap="true" />
+                                                <asp:BoundField DataField="uom" HeaderText="Uom" ItemStyle-Width="30%" />
                                                 <asp:BoundField DataField="price" HeaderText="price" />
                                                 <asp:BoundField DataField="stockUnit" HeaderText="stockUnit" DataFormatString="{0:F0}" />
                                                 <asp:BoundField DataField="LOCATION" HeaderText="LOCATION" />
@@ -127,6 +189,7 @@
                                 </ContentTemplate>
                                 <Triggers>
                                     <asp:AsyncPostBackTrigger ControlID="btSearchItem" />
+                                    <asp:AsyncPostBackTrigger ControlID="gvSearchItem" />
                                 </Triggers>
                             </asp:UpdatePanel>
                         </div>
@@ -152,14 +215,14 @@
                                 ShowFooter="True" ForeColor="#333333" OnRowDeleting="gvItem_RowDeleting">
                                 <Columns>
                                     <asp:BoundField DataField="Col1" HeaderText="Item Code" />
-                                    <asp:BoundField DataField="Col2" HeaderText="Item Desc" ItemStyle-Width="30%" ItemStyle-Wrap="true"/>
+                                    <asp:BoundField DataField="Col2" HeaderText="Item Desc" ItemStyle-Width="30%" ItemStyle-Wrap="true" />
                                     <asp:TemplateField HeaderText="UOM" ItemStyle-Width="20%">
                                         <ItemTemplate>
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                                    <asp:TextBox ID="tbGridViewUom" runat="server"  Text='<%#Eval("UOM") %>'></asp:TextBox>
+                                                    <asp:TextBox ID="tbGridViewUom" runat="server" Text='<%#Eval("UOM") %>'></asp:TextBox>
                                                 </div>
-                                            </div>                                                                                        
+                                            </div>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:BoundField DataField="Col3" HeaderText="Stock Unit" />
@@ -199,9 +262,6 @@
                         <asp:Label ID="lbCredit" runat="server" Text="0"></asp:Label>
                     </p>
                 </ContentTemplate>
-                <Triggers>
-                    <asp:AsyncPostBackTrigger ControlID="btSearchCust" />
-                </Triggers>
             </asp:UpdatePanel>
         </div>
         <asp:UpdatePanel ID="UpdatePanel4" runat="server">
@@ -229,9 +289,11 @@
 
     </form>
 
-    <script>
+    <script type="text/javascript">
         $(document).ready(function () {
-            $('#' + '<%= tbCusCode.ClientID %>').css('border', '3px solid blue');
+            $('#' + '<%= tbCusCode.ClientID %>').css('border', '3px solid blue');                       
         });
+
     </script>
+
 </asp:Content>

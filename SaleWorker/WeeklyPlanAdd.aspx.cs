@@ -273,7 +273,7 @@ namespace SaleWorker
                         tbCustId.Enabled = false;
                         ddlProvince.Enabled = false;
                         ddlDistrict.Enabled = false;
-                        btSearchCust.Enabled = false;
+                        
 
                         tbNewCustName.Text = null;
                         ddlNewDistrict.SelectedIndex = 0;
@@ -291,46 +291,7 @@ namespace SaleWorker
                     dr.Close();
                 }
             }
-        }
-
-        protected void btSearchCust_Click(object sender, EventArgs e)
-        {
-            using (SqlConnection conn = new SqlConnection(strConnStringAccpac))
-            {
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = conn;
-                    cmd.CommandText = "select top 1 idcust,namecust,namecity,codestte from arcus where swactv = 1 and idcust = @idcust";
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.Clear();
-                    cmd.Parameters.Add("@idcust", SqlDbType.NVarChar).Value = tbCustId.Text;
-                    SqlDataReader dr;
-                    conn.Open();
-                    dr = cmd.ExecuteReader();
-                    if (dr.HasRows)
-                    {
-                        DataTable dt = new DataTable();
-                        dt.Load(dr);
-                        lbCustomer.Text = dt.Rows[0][1].ToString();
-                        ViewState["namecity"] = dt.Rows[0][2].ToString();
-                        ViewState["codestte"] = dt.Rows[0][3].ToString();
-
-                        ddlDistrict.SelectedIndex = 0;
-                        ddlDistrict.Enabled = false;
-
-                        ddlProvince.SelectedIndex = 0;
-                        ddlProvince.Enabled = false;
-
-                    }
-                    else
-                    {
-                        msgbx("Not found data");
-                        tbCustId.Focus();
-                    }
-                    dr.Close();
-                }
-            }
-        }
+        }        
 
         protected void btAdd_Click(object sender, EventArgs e)
         {
@@ -481,6 +442,79 @@ namespace SaleWorker
                     }
                     dr.Close();
                     return ViewState["codeslsp"].ToString();
+                }
+            }
+        }
+
+        protected void gvCustomer_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvCustomer.PageIndex = e.NewPageIndex;
+            //gvCustomer.SelectedIndex = -1;
+            gvCustomer.DataSource = ViewState["tableSearcust"];
+            gvCustomer.DataBind();  
+        }
+
+        protected void gvCustomer_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "select")
+            {
+                GridViewRow gvr = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+                int rowIndex = gvr.RowIndex;
+                tbCustId.Text = gvCustomer.Rows[rowIndex].Cells[0].Text;
+                //tbCusCode.Enabled = false;
+                lbCustomer.ForeColor = System.Drawing.Color.Black;
+                lbCustomer.Text = gvCustomer.Rows[rowIndex].Cells[1].Text;
+                ViewState["namecity"] = gvCustomer.Rows[rowIndex].Cells[2].Text;
+                ViewState["codestte"] = gvCustomer.Rows[rowIndex].Cells[3].Text;
+            }
+        }
+
+        protected void btSearchCustGV_Click(object sender, EventArgs e)
+        {
+            if (tbSearchCust.Text.Length == 0)
+            {
+                msgbx("Please fill data");
+                return;
+            }
+            using (SqlConnection conn = new SqlConnection(strConnStringAccpac))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+                    if (ddlTypeSearchCust.SelectedValue == "CustomerCode")
+                    {
+                        cmd.CommandText = "select IDCUST,ltrim(rtrim(NAMECUST)) as namecust,namecity,codestte  from arcus where  swactv = 1  and IDCUST like '%' + @search + '%'";
+                    }
+                    else if (ddlTypeSearchCust.SelectedValue == "CustomerDesc")
+                    {
+                        cmd.CommandText = "select IDCUST,ltrim(rtrim(NAMECUST)) as namecust,namecity,codestte  from arcus where  swactv = 1  and NAMECUST like '%' + @search + '%'"; ;
+
+                    }
+
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.Add("@search", SqlDbType.NVarChar).Value = tbSearchCust.Text;
+                    DataSet ds = new DataSet();
+                    SqlDataReader dr;
+                    conn.Open();
+                    dr = cmd.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        DataTable dt = new DataTable();
+                        dt.Load(dr);
+                        ViewState["tableSearcust"] = dt;
+                        gvCustomer.DataSource = ViewState["tableSearcust"];
+                        gvCustomer.DataBind();
+                    }
+                    else
+                    {
+                        //BingEmpyGridViewWithHeader(gvCustomer, ds, "No data found");
+                        msgbx("ไม่พบลูกค้า");
+                        //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Not found data" + "');", true);                   
+                        gvCustomer.DataSource = null;
+                        gvCustomer.DataBind();
+                    }
+                    dr.Close();
                 }
             }
         }

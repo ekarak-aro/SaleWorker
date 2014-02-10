@@ -31,15 +31,6 @@ namespace SaleWorker {
         protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
         
         /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
-        
-        /// <summary>
         /// UpdatePanel3 control.
         /// </summary>
         /// <remarks>
@@ -58,15 +49,6 @@ namespace SaleWorker {
         protected global::System.Web.UI.WebControls.TextBox tbCusCode;
         
         /// <summary>
-        /// btSearchCust control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btSearchCust;
-        
-        /// <summary>
         /// lbCustName control.
         /// </summary>
         /// <remarks>
@@ -74,6 +56,51 @@ namespace SaleWorker {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbCustName;
+        
+        /// <summary>
+        /// ddlTypeSearchCust control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlTypeSearchCust;
+        
+        /// <summary>
+        /// tbSearchCust control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbSearchCust;
+        
+        /// <summary>
+        /// btSearchCustGV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btSearchCustGV;
+        
+        /// <summary>
+        /// UpdatePanel6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel6;
+        
+        /// <summary>
+        /// gvCustomer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvCustomer;
         
         /// <summary>
         /// Label2 control.
