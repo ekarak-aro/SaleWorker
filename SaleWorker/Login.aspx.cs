@@ -75,7 +75,7 @@ namespace SaleWorker
                     {
                         //ReportSaleUser
                         Session["username"] = tbUsername.Text;
-                        Response.Redirect("http://www.google.com");
+                        Response.Redirect("ReportUser/ReportLoanitem.aspx");
                     }
                     else if (ddlRole.SelectedValue == "4")
                     {

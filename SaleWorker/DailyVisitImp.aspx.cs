@@ -11,7 +11,7 @@ using SaleWorker.ObjectClass;
 
 namespace SaleWorker
 {
-    public partial class DailyVisitImp : System.Web.UI.Page
+    public partial class DailyVisitImp : SessionCheck
     {
         private String strConnString = ConfigurationManager.ConnectionStrings["conString"].ConnectionString;
         private String strConnStringAccpac = ConfigurationManager.ConnectionStrings["conAccpac"].ConnectionString;

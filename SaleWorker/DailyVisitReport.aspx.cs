@@ -1,5 +1,4 @@
-﻿//using Microsoft.Reporting.WebForms;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -9,20 +8,17 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Microsoft.Reporting.WebForms;
 
-
 namespace SaleWorker
 {
-    public partial class ReportLoneItem : SessionCheck
+    public partial class DailyVisitReport : System.Web.UI.Page
     {
         private String strConnString = ConfigurationManager.ConnectionStrings["conString"].ConnectionString;
         private String strConnStringAccpac = ConfigurationManager.ConnectionStrings["conAccpac"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Session["username"] = "Ekarak.aro";
             if (!Page.IsPostBack)
             {
                 CallSale();
@@ -70,31 +66,35 @@ namespace SaleWorker
 
             }
         }
-
-        private void MessageBox(string msg)
+        private void msgbx(string msg)
         {
-            Label lbl = new Label();
-            lbl.Text = "<script language='javascript'>" + Environment.NewLine + "window.alert('" + msg + "')</script>";
-            Page.Controls.Add(lbl);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + msg + "')", true);
         }
 
         protected void btSearchData_Click(object sender, EventArgs e)
         {
+            if (tbDateFrom.Text.Length != 10 || tbDateTo.Text.Length != 10)
+            {
+                msgbx("รูปแบบวันที่ไม่ถูกต้อง(dd/MM/yyy)");
+                return;
+            }           
             using (SqlConnection conn = new SqlConnection(strConnString))
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = conn;
                     string _strText;
-                    _strText = "select * from rpt_loan_item where ( CAST(dateCreate AS DATE) between CONVERT(date,@dateFrom,103) and CONVERT(date,@dateTo,103) )";
+                    _strText = " select * " +
+                           " from v_daily" +
+                           " where ( actualdate between convert(date,@datefrom,103) and convert(date,@dateto,103))";
 
                     if (ddlSale.SelectedIndex == 0)
                     {
-                        _strText = _strText + " order by datecreate desc";
+                        _strText = _strText + " order by actualdate desc";
                     }
                     else
                     {
-                        _strText = _strText + " and saleid = @saleID order by datecreate desc";
+                        _strText = _strText + " and saleid = @saleID order by actualdate desc";
                     }
                     cmd.CommandText = _strText;
                     cmd.Parameters.Clear();
@@ -120,32 +120,30 @@ namespace SaleWorker
                     else
                     {
                         gvItem.DataSource = null;
-                        gvItem.DataBind();                        
-                        ViewState.Remove("tableSearchitem");                                                                      
+                        gvItem.DataBind();
+                        ViewState.Remove("tableSearchitem");
                         ReportViewer1.LocalReport.DataSources.Clear();
                         ReportViewer1.LocalReport.Refresh();
-                        MessageBox("Nodata found");
+                        msgbx("Nodata found");
                     }
                     dr.Close();
-                    
+
                 }
 
             }
         }
 
-        public SqlParameter[] SearchValue = new SqlParameter[1];
         private void reportViewer()
         {
+            ReportViewer1.ProcessingMode = ProcessingMode.Local;
+            ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/Report/DailyVisit/DailyVisit.rdlc");
             DataSet ds = new DataSet();
             ds.Tables.Add((DataTable)ViewState["tableSearchitem"]);
-            ReportViewer1.Visible = true;
-            ReportViewer1.ProcessingMode = ProcessingMode.Local;
-            ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/Report/loanitem/rptloanitem.rdlc");            
-            ReportDataSource datasource = new ReportDataSource("dsLoanItem", ds.Tables[0]);
+            ReportDataSource datasource = new ReportDataSource("DataSet1", ds.Tables[0]);
             ReportViewer1.LocalReport.DataSources.Clear();
             ReportViewer1.LocalReport.DataSources.Add(datasource);
             ReportViewer1.AsyncRendering = false;
-            ReportViewer1.SizeToReportContent = false;            
+            ReportViewer1.SizeToReportContent = false;
             ReportViewer1.LocalReport.Refresh();
 
         }
@@ -163,56 +161,47 @@ namespace SaleWorker
                server control at run time. */
         }
 
+
         protected void btExcel_Click(object sender, EventArgs e)
         {
-            Response.Clear();
+            Response.ClearContent();
             Response.Buffer = true;
-            Response.AddHeader("content-disposition", "attachment;filename=GridViewExport.xls");
-            Response.Charset = "";
-            Response.ContentType = "application/vnd.ms-excel";
-            using (StringWriter sw = new StringWriter())
+            Response.AddHeader("content-disposition", string.Format("attachment; filename={0}", "GridviewExport.xls"));
+            Response.ContentType = "application/ms-excel";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+            gvItem.AllowPaging = false;
+            gvItem.DataSource = ViewState["tableSearchitem"];
+            gvItem.DataBind();
+            //Change the Header Row back to white color
+            gvItem.HeaderRow.Style.Add("background-color", "#FFFFFF");
+            //Applying stlye to gridview header cells
+            for (int i = 0; i < gvItem.HeaderRow.Cells.Count; i++)
             {
-                HtmlTextWriter hw = new HtmlTextWriter(sw);
-
-                //To Export all pages
-                gvItem.AllowPaging = false;
-                gvItem.DataSource = ViewState["tableSearchitem"];
-                gvItem.DataBind();
-                //this.BindGrid();
-
-                gvItem.HeaderRow.BackColor = Color.White;
-                foreach (TableCell cell in gvItem.HeaderRow.Cells)
+                gvItem.HeaderRow.Cells[i].Style.Add("background-color", "#507CD1");
+            }
+            int j = 1;
+            foreach (GridViewRow gvrow in gvItem.Rows)
+            {
+                gvrow.BackColor = System.Drawing.Color.White;
+                if (j <= gvItem.Rows.Count)
                 {
-                    cell.BackColor = gvItem.HeaderStyle.BackColor;
-                }
-                foreach (GridViewRow row in gvItem.Rows)
-                {
-                    row.BackColor = Color.White;
-                    foreach (TableCell cell in row.Cells)
+                    if (j % 2 != 0)
                     {
-                        if (row.RowIndex % 2 == 0)
+                        for (int k = 0; k < gvrow.Cells.Count; k++)
                         {
-                            cell.BackColor = gvItem.AlternatingRowStyle.BackColor;
+                            gvrow.Cells[k].Style.Add("background-color", "#EFF3FB");
                         }
-                        else
-                        {
-                            cell.BackColor = gvItem.RowStyle.BackColor;
-                        }
-                        cell.CssClass = "textmode";
                     }
                 }
-
-                gvItem.RenderControl(hw);
-
-                //style to format numbers to string
-                string style = @"<style> .textmode { } </style>";
-                Response.Write(style);
-                Response.Output.Write(sw.ToString());
-                Response.Flush();
-                Response.End();
-
+                j++;
             }
+            gvItem.RenderControl(htw);
+            Response.Write(sw.ToString());
+            Response.End();
 
         }
+
+
     }
 }

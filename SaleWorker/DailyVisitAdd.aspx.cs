@@ -11,11 +11,12 @@ using SaleWorker.ObjectClass;
 
 namespace SaleWorker
 {
-    public partial class DailyVisitAdd : System.Web.UI.Page
+    public partial class DailyVisitAdd : SessionCheck
     {
         private String strConnString = ConfigurationManager.ConnectionStrings["conString"].ConnectionString;
         private String strConnStringAccpac = ConfigurationManager.ConnectionStrings["conAccpac"].ConnectionString;
         DataTable dtItem;
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -72,6 +73,23 @@ namespace SaleWorker
                     {
                         conn.Open();
                         SqlDataReader dr = cmd.ExecuteReader();
+                        //if (dr.HasRows)
+                        //{
+                        //    DataTable dt = new DataTable();
+                        //    dt.Load(dr);
+                        //    tbWeeklyPlanNo.Text = dt.Rows[0][0].ToString();
+                        //    tbPlanDate.Text = dt.Rows[0][1].ToString();
+                        //    tbSaleId.Text = dt.Rows[0][2].ToString();
+                        //    tbSaleName.Text = dt.Rows[0][3].ToString();
+                        //    tbTypeCustomer.Text = dt.Rows[0][4].ToString();
+                        //    tbCustId.Text = dt.Rows[0][5].ToString();
+                        //    tbCustName.Text = dt.Rows[0][6].ToString();
+                        //    tbDistrictId.Text = dt.Rows[0][7].ToString();
+                        //    tbDistrictName.Text = dt.Rows[0][8].ToString();
+                        //    tbProvinceId.Text = dt.Rows[0][9].ToString();
+                        //    tbProvinceName.Text = dt.Rows[0][10].ToString();
+                        //}
+
                         while (dr.Read())
                         {
                             tbWeeklyPlanNo.Text = dr[0].ToString();
@@ -85,6 +103,7 @@ namespace SaleWorker
                             tbDistrictName.Text = dr[8].ToString();
                             tbProvinceId.Text = dr[9].ToString();
                             tbProvinceName.Text = dr[10].ToString();
+                            ViewState["weeklyplandocno"] = dr[0].ToString();
                         }
                         dr.Close();
                         //if (dr.HasRows)
@@ -244,6 +263,96 @@ namespace SaleWorker
         protected void gvItem_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
 
+        }
+
+        protected void btSave_Click(object sender, EventArgs e)
+        {
+            Page.Validate();
+            if (Page.IsValid)
+            {
+                using (SqlConnection conn = new SqlConnection(strConnString))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = conn;
+                        cmd.CommandText = "new_dailyVisit";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Clear();
+                        Label _lbUser = this.Master.FindControl("lblName") as Label;
+                        cmd.Parameters.Add("@usercreate", SqlDbType.NVarChar).Value = _lbUser.Text;
+                        cmd.Parameters.Add("@useredit", SqlDbType.NVarChar).Value = _lbUser.Text;
+                        cmd.Parameters.Add("@remark", SqlDbType.NVarChar).Value = tbRemark.Text;
+                        cmd.Parameters.Add("@weeklyplanDocNo", SqlDbType.NVarChar).Value = ViewState["weeklyplandocno"].ToString();                       
+                        try
+                        {
+                            conn.Open();                            
+                            int newId = Convert.ToInt32(cmd.ExecuteScalar());
+                            foreach (ListItem item in cblCustomer.Items)
+                            {
+                                if (item.Selected)
+                                {
+                                    cmd.CommandType = CommandType.Text;
+                                    cmd.CommandText = "insert into ReactionCustomer(datecreate,dateedit,usercreate,useredit,value,item,idDailyvisit,Type)" +
+                                    " values(getdate(),getdate(),@usercreateCus,@usereditCus,@valueCus,@itemCus,@idDailyvisitCus,@TypeCus)";
+                                    cmd.Parameters.Clear();
+                                    cmd.Parameters.Add("@usercreateCus", SqlDbType.NVarChar).Value = _lbUser.Text;
+                                    cmd.Parameters.Add("@usereditCus", SqlDbType.NVarChar).Value = _lbUser.Text;
+                                    cmd.Parameters.Add("@valueCus", SqlDbType.NVarChar).Value = item.Value;
+                                    cmd.Parameters.Add("@itemCus", SqlDbType.NVarChar).Value = item.Text;
+                                    cmd.Parameters.Add("@idDailyvisitCus", SqlDbType.Int).Value = newId;
+                                    cmd.Parameters.Add("@TypeCus", SqlDbType.NVarChar).Value = "Customer";                                    
+                                    //cmd.ExecuteNonQuery();
+                                }
+                            }
+
+                            foreach (ListItem item in cblOther.Items)
+                            {
+                                if (item.Selected)
+                                {
+                                    cmd.CommandType = CommandType.Text;
+                                    cmd.CommandText = "insert into ReactionCustomer(datecreate,dateedit,usercreate,useredit,value,item,idDailyvisit,Type)" +
+                                    " values(getdate(),getdate(),@usercreateOth,@usereditOth,@valueOth,@itemOth,@idDailyvisitOth,@TypeOth)";
+                                    cmd.Parameters.Clear();
+                                    cmd.Parameters.Add("@usercreateOth", SqlDbType.NVarChar).Value = _lbUser.Text;
+                                    cmd.Parameters.Add("@usereditOth", SqlDbType.NVarChar).Value = _lbUser.Text;
+                                    cmd.Parameters.Add("@valueOth", SqlDbType.NVarChar).Value = item.Value;
+                                    cmd.Parameters.Add("@itemOth", SqlDbType.NVarChar).Value = item.Text;
+                                    cmd.Parameters.Add("@idDailyvisitOth", SqlDbType.Int).Value = newId;
+                                    cmd.Parameters.Add("@TypeOth", SqlDbType.NVarChar).Value = "Other";
+                                    //cmd.ExecuteNonQuery();
+                                }
+                            }
+                            if (gvItem.Rows.Count!=0)
+                            {
+                                foreach (GridViewRow item in gvItem.Rows)
+                                {
+                                    cmd.CommandType = CommandType.Text;                                    
+                                    cmd.CommandText = "insert into ReactionItem(datecreate,dateedit,usercreate,useredit,itemno,[desc],qty,stockunit,typeofpre,typeofpost,idDailyvisit)" +
+                                        " values (getdate(),getdate(),@usercreateItm,@usereditItm,@itemno,@desc,@qty,@stockunit,@typeofpre,@typeofpost,@idDailyvisitItm) ";
+                                    cmd.Parameters.Clear();
+                                    cmd.Parameters.Add("@usercreateItm", SqlDbType.NVarChar).Value = _lbUser.Text;
+                                    cmd.Parameters.Add("@usereditItm", SqlDbType.NVarChar).Value = _lbUser.Text;
+                                    cmd.Parameters.Add("@itemno", SqlDbType.NVarChar).Value = item.Cells[0].Text;
+                                    cmd.Parameters.Add("@desc", SqlDbType.NVarChar).Value = item.Cells[1].Text;
+                                    cmd.Parameters.Add("@qty", SqlDbType.Decimal).Value = item.Cells[2].Text;
+                                    cmd.Parameters.Add("@stockunit", SqlDbType.NVarChar).Value = item.Cells[3].Text;
+                                    cmd.Parameters.Add("@typeofpre", SqlDbType.NVarChar).Value = item.Cells[4].Text;
+                                    cmd.Parameters.Add("@typeofpost", SqlDbType.NVarChar).Value = item.Cells[5].Text;
+                                    cmd.Parameters.Add("@idDailyvisitItm", SqlDbType.Int).Value = newId;                                    
+                                    //cmd.ExecuteNonQuery();
+                                }
+                            }
+                            ClientScript.RegisterStartupScript(this.GetType(), "Success", "<script type='text/javascript'>alert('Add data complete!');window.location='DailyVisitImp.aspx';</script>'");
+                            //msgbx("Add data complete");
+                            //Response.Redirect("~/DailyVisitImp.aspx");
+                        }
+                        catch (Exception)
+                        {
+                            throw;
+                        }
+                    }
+                }
+            }
         }
 
        

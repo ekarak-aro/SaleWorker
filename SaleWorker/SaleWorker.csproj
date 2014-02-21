@@ -125,7 +125,9 @@
     <Content Include="Admin\UpdateUser.aspx" />
     <Content Include="arrow_up.png" />
     <Content Include="DailyVisitAdd.aspx" />
+    <Content Include="DailyVisitDelete.aspx" />
     <Content Include="DailyVisitImp.aspx" />
+    <Content Include="DailyVisitReport.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Calendar.aspx" />
     <Content Include="Content\bootstrap-theme.css">
@@ -146,6 +148,9 @@
     <Content Include="Home.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="ReportLoneItem.aspx" />
+    <Content Include="ReportUser\ReportDailyVisit.aspx" />
+    <Content Include="ReportUser\ReportLoanitem.aspx" />
+    <Content Include="ReportUser\ReportWeeklyPlan.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -159,6 +164,17 @@
     <Content Include="Dataset\WeeklyPlan.xsc">
       <DependentUpon>WeeklyPlan.xsd</DependentUpon>
     </Content>
+    <Content Include="Dataset\DailyVisit.xsc">
+      <DependentUpon>DailyVisit.xsd</DependentUpon>
+    </Content>
+    <None Include="Dataset\DailyVisit.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DailyVisit.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Dataset\DailyVisit.xss">
+      <DependentUpon>DailyVisit.xsd</DependentUpon>
+    </Content>
     <None Include="Dataset\WeeklyPlan.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -167,6 +183,7 @@
     <Content Include="Dataset\WeeklyPlan.xss">
       <DependentUpon>WeeklyPlan.xsd</DependentUpon>
     </Content>
+    <Content Include="ReportUser\ReportUser.Master" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
@@ -291,12 +308,31 @@
     <Compile Include="DailyVisitAdd.aspx.designer.cs">
       <DependentUpon>DailyVisitAdd.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DailyVisitDelete.aspx.cs">
+      <DependentUpon>DailyVisitDelete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DailyVisitDelete.aspx.designer.cs">
+      <DependentUpon>DailyVisitDelete.aspx</DependentUpon>
+    </Compile>
     <Compile Include="DailyVisitImp.aspx.cs">
       <DependentUpon>DailyVisitImp.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="DailyVisitImp.aspx.designer.cs">
       <DependentUpon>DailyVisitImp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DailyVisitReport.aspx.cs">
+      <DependentUpon>DailyVisitReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DailyVisitReport.aspx.designer.cs">
+      <DependentUpon>DailyVisitReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dataset\DailyVisit.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DailyVisit.xsd</DependentUpon>
     </Compile>
     <Compile Include="Dataset\WeeklyPlan.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -356,6 +392,34 @@
     </Compile>
     <Compile Include="ReportLoneItem.aspx.designer.cs">
       <DependentUpon>ReportLoneItem.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportUser\ReportDailyVisit.aspx.cs">
+      <DependentUpon>ReportDailyVisit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportUser\ReportDailyVisit.aspx.designer.cs">
+      <DependentUpon>ReportDailyVisit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportUser\ReportLoanitem.aspx.cs">
+      <DependentUpon>ReportLoanitem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportUser\ReportLoanitem.aspx.designer.cs">
+      <DependentUpon>ReportLoanitem.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportUser\ReportUser.Master.cs">
+      <DependentUpon>ReportUser.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportUser\ReportUser.Master.designer.cs">
+      <DependentUpon>ReportUser.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ReportUser\ReportWeeklyPlan.aspx.cs">
+      <DependentUpon>ReportWeeklyPlan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportUser\ReportWeeklyPlan.aspx.designer.cs">
+      <DependentUpon>ReportWeeklyPlan.aspx</DependentUpon>
     </Compile>
     <Compile Include="SaleDbDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -432,7 +496,12 @@
     <WCFMetadataStorage Include="Service References\ServiceReference1\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Report\WeeklyPlan\WeeklyPlan.rdlc" />
+    <Content Include="Report\DailyVisit\DailyVisit.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Report\WeeklyPlan\WeeklyPlan.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

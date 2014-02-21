@@ -1,11 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MyMasterPage.Master" AutoEventWireup="true" CodeBehind="WeeklyPlanReport.aspx.cs" Inherits="SaleWorker.WeeklyPlanReport" EnableEventValidation="false" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ReportUser/ReportUser.Master" AutoEventWireup="true" CodeBehind="ReportLoanitem.aspx.cs" Inherits="SaleWorker.ReportUser.ReportLoanitem" %>
 
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <style type="text/css">
+     <style type="text/css">
         fieldset.scheduler-border {
             border: 1px groove #ddd !important;
             padding: 0 1.4em 1.4em 1.4em !important;
@@ -37,6 +36,9 @@
     </style>
     <form id="form1" runat="server" class="form-horizontal">
         <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></ajaxToolkit:ToolkitScriptManager>
+        <div style="text-align:center">
+            <h1>รายงานการยืมสินค้า</h1>
+        </div>
         <div class="form-group">
             <div class="col-sm-6">
                 <label class="control-label">Date :</label>
@@ -78,16 +80,17 @@
                                 <div class="col-sm-6 maincontent">
                                     <asp:GridView ID="gvItem" runat="server" Width="100%" CssClass="table table-bordered table-hover table-responsive table-condensed" AllowPaging="True" OnPageIndexChanging="gvItem_PageIndexChanging" AutoGenerateColumns="false">
                                         <Columns>
-                                            <asp:BoundField DataField="docno" HeaderText="docno" />
-                                            <asp:BoundField DataField="plandate" HeaderText="plandate" />
-                                            <asp:BoundField DataField="saleid" HeaderText="saleid" />
-                                            <asp:BoundField DataField="salename" HeaderText="salenamen" />                                            
-                                            <asp:BoundField DataField="typecustomer" HeaderText="TypeCustomer" />
-                                            <asp:BoundField DataField="customerid" HeaderText="customerid" />
+                                            <asp:BoundField DataField="DateCreate" HeaderText="DateCreate" />
+                                            <asp:BoundField DataField="saleID" HeaderText="saleID" />
+                                            <asp:BoundField DataField="salename" HeaderText="salename" />
+                                            <asp:BoundField DataField="customerId" HeaderText="customerId" />
                                             <asp:BoundField DataField="customername" HeaderText="customername" />
-                                            <asp:BoundField DataField="districtname" HeaderText="districtname" />
-                                            <asp:BoundField DataField="provincename" HeaderText="provincename" />
-                                            <asp:BoundField DataField="remark" HeaderText="remark" />
+                                            <asp:BoundField DataField="itemcode" HeaderText="itemcode" />
+                                            <asp:BoundField DataField="itemdesc" HeaderText="itemdesc" />
+                                            <asp:BoundField DataField="unit" HeaderText="unit" />
+                                            <asp:BoundField DataField="uom" HeaderText="uom" />
+                                            <asp:BoundField DataField="unitprice" HeaderText="unitprice" />
+                                            <asp:BoundField DataField="TotalPrice" HeaderText="TotalPrice" />
                                         </Columns>
                                     </asp:GridView>
                                 </div>
@@ -105,12 +108,12 @@
                 <div class="tab-pane" id="ReportViewer">
                     <div class="col-sm-12">
                         <div class="maincontent">
-                            <rsweb:ReportViewer ID="ReportViewer1" runat="server" Height="100%" Style="width: 100% ; overflow:hidden;">
-                            </rsweb:ReportViewer>
+                            <rsweb:ReportViewer ID="ReportViewer1" runat="server"  Height="100%" Style="width: 100% ; overflow:hidden;"></rsweb:ReportViewer>
                         </div>
                     </div>
                 </div>
             </div>
         </fieldset>
+
     </form>
 </asp:Content>

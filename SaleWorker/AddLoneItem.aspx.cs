@@ -616,7 +616,7 @@ namespace SaleWorker
 
                 }
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 //Do your exception handling here
             }

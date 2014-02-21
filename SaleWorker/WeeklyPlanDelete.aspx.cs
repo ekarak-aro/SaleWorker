@@ -13,7 +13,7 @@ using SaleWorker.ObjectClass;
 
 namespace SaleWorker
 {
-    public partial class WeeklyPlanDelete : System.Web.UI.Page
+    public partial class WeeklyPlanDelete : SessionCheck
     {
         private String strConnString = ConfigurationManager.ConnectionStrings["conString"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)

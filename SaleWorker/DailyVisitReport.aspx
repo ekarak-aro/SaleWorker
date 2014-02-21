@@ -1,7 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MyMasterPage.Master" AutoEventWireup="true" CodeBehind="WeeklyPlanReport.aspx.cs" Inherits="SaleWorker.WeeklyPlanReport" EnableEventValidation="false" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MyMasterPage.Master" AutoEventWireup="true" CodeBehind="DailyVisitReport.aspx.cs" Inherits="SaleWorker.DailyVisitReport" EnableEventValidation="false" %>
 
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -35,7 +34,7 @@
             position: relative;
         }
     </style>
-    <form id="form1" runat="server" class="form-horizontal">
+     <form id="form1" runat="server" class="form-horizontal">
         <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></ajaxToolkit:ToolkitScriptManager>
         <div class="form-group">
             <div class="col-sm-6">
@@ -76,18 +75,26 @@
                         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                             <ContentTemplate>
                                 <div class="col-sm-6 maincontent">
-                                    <asp:GridView ID="gvItem" runat="server" Width="100%" CssClass="table table-bordered table-hover table-responsive table-condensed" AllowPaging="True" OnPageIndexChanging="gvItem_PageIndexChanging" AutoGenerateColumns="false">
+                                    <asp:GridView ID="gvItem" runat="server" Width="100%" CssClass="table table-bordered table-hover table-responsive table-condensed" AllowPaging="True"  AutoGenerateColumns="false" OnPageIndexChanging="gvItem_PageIndexChanging">
                                         <Columns>
                                             <asp:BoundField DataField="docno" HeaderText="docno" />
-                                            <asp:BoundField DataField="plandate" HeaderText="plandate" />
+                                            <asp:BoundField DataField="actualdate" HeaderText="plandate" />
                                             <asp:BoundField DataField="saleid" HeaderText="saleid" />
-                                            <asp:BoundField DataField="salename" HeaderText="salenamen" />                                            
-                                            <asp:BoundField DataField="typecustomer" HeaderText="TypeCustomer" />
+                                            <asp:BoundField DataField="salename" HeaderText="salenamen" />
+                                            <asp:BoundField DataField="isnewcust" HeaderText="salenamen" />                                            
                                             <asp:BoundField DataField="customerid" HeaderText="customerid" />
                                             <asp:BoundField DataField="customername" HeaderText="customername" />
                                             <asp:BoundField DataField="districtname" HeaderText="districtname" />
                                             <asp:BoundField DataField="provincename" HeaderText="provincename" />
                                             <asp:BoundField DataField="remark" HeaderText="remark" />
+                                            <asp:BoundField DataField="item" HeaderText="item" />
+                                            <asp:BoundField DataField="type" HeaderText="type" />
+                                            <asp:BoundField DataField="itemno" HeaderText="itemno" />
+                                            <asp:BoundField DataField="desc" HeaderText="desc" />
+                                            <asp:BoundField DataField="qty" HeaderText="qty" />
+                                            <asp:BoundField DataField="stockunit" HeaderText="stockunit" />
+                                            <asp:BoundField DataField="TypeOfPre" HeaderText="TypeOfPre" />
+                                            <asp:BoundField DataField="TypeOfPost" HeaderText="TypeOfPost" />
                                         </Columns>
                                     </asp:GridView>
                                 </div>
@@ -99,14 +106,13 @@
                     </div>
                     <br />
                     <div class="row" style="text-align: center">
-                        <asp:Button ID="btExcel" runat="server" Text="Excel" class="btn btn-info" OnClick="btExcel_Click" />
+                        <asp:Button ID="btExcel" runat="server" Text="Excel" class="btn btn-info" OnClick="btExcel_Click"  />
                     </div>
                 </div>
                 <div class="tab-pane" id="ReportViewer">
                     <div class="col-sm-12">
-                        <div class="maincontent">
-                            <rsweb:ReportViewer ID="ReportViewer1" runat="server" Height="100%" Style="width: 100% ; overflow:hidden;">
-                            </rsweb:ReportViewer>
+                        <div class="maincontent">     
+                            <rsweb:ReportViewer ID="ReportViewer1" runat="server" Height="100%" Style="width: 100% ; overflow:hidden;"></rsweb:ReportViewer>                     
                         </div>
                     </div>
                 </div>

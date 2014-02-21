@@ -326,7 +326,7 @@
         </div>
         <div class="form-group">
             <div style="text-align: center">
-                <asp:Button ID="btSave" runat="server" Text="Save Data" CssClass="btn btn-info btn-lg" />
+                <asp:Button ID="btSave" runat="server" Text="Save Data" CssClass="btn btn-info btn-lg" OnClick="btSave_Click" />
             </div>
         </div>
 

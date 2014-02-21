@@ -1,11 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MyMasterPage.Master" AutoEventWireup="true" CodeBehind="WeeklyPlanReport.aspx.cs" Inherits="SaleWorker.WeeklyPlanReport" EnableEventValidation="false" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ReportUser/ReportUser.Master" AutoEventWireup="true" CodeBehind="ReportWeeklyPlan.aspx.cs" Inherits="SaleWorker.ReportUser.ReportWeeklyPlan" %>
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <style type="text/css">
+     <style type="text/css">
         fieldset.scheduler-border {
             border: 1px groove #ddd !important;
             padding: 0 1.4em 1.4em 1.4em !important;
@@ -37,6 +36,9 @@
     </style>
     <form id="form1" runat="server" class="form-horizontal">
         <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></ajaxToolkit:ToolkitScriptManager>
+         <div style="text-align:center">
+            <h1>รายงาน WeeklyPlan</h1>
+        </div>
         <div class="form-group">
             <div class="col-sm-6">
                 <label class="control-label">Date :</label>

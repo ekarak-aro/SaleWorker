@@ -33,8 +33,9 @@ namespace SaleWorker
                 "<br><b>Error Message: </b>" + objErr.Message.ToString() +
                 "<br><b>Stack Trace:</b><br>" + objErr.StackTrace.ToString();
             //Email sending method                      
-            
-            MailMessage message = new MailMessage("error.sale@pdgth.local", "ekarak.aro@pdgth.local");           
+
+            string toEmail = ConfigurationManager.AppSettings["ErrorEmail"].ToString();
+            MailMessage message = new MailMessage("error.sale@pdgth.local", toEmail);           
             message.IsBodyHtml = true;
             DateTime _dtNow = DateTime.Now;
             message.Subject = "Error (Do Not Reply Mail!!!!!) " + _dtNow.ToString();

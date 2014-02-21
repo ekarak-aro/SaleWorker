@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DailyVisit" targetNamespace="http://tempuri.org/DailyVisit.xsd" xmlns:mstns="http://tempuri.org/DailyVisit.xsd" xmlns="http://tempuri.org/DailyVisit.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="conString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="conString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.conString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="v_dailyTableAdapter" GeneratorDataComponentClassName="v_dailyTableAdapter" Name="v_daily" UserDataComponentName="v_dailyTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="conString (Web.config)" DbObjectName="SaleDb.dbo.v_daily" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT docno, actualdate, saleid, salename, IsNewCust, customerid, customername, districtname, provincename, remark, item, type, itemno, [desc], qty, stockunit, TypeOfPre, TypeOfPost FROM dbo.v_daily</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="docno" DataSetColumn="docno" />
+              <Mapping SourceColumn="actualdate" DataSetColumn="actualdate" />
+              <Mapping SourceColumn="saleid" DataSetColumn="saleid" />
+              <Mapping SourceColumn="salename" DataSetColumn="salename" />
+              <Mapping SourceColumn="IsNewCust" DataSetColumn="IsNewCust" />
+              <Mapping SourceColumn="customerid" DataSetColumn="customerid" />
+              <Mapping SourceColumn="customername" DataSetColumn="customername" />
+              <Mapping SourceColumn="districtname" DataSetColumn="districtname" />
+              <Mapping SourceColumn="provincename" DataSetColumn="provincename" />
+              <Mapping SourceColumn="remark" DataSetColumn="remark" />
+              <Mapping SourceColumn="item" DataSetColumn="item" />
+              <Mapping SourceColumn="type" DataSetColumn="type" />
+              <Mapping SourceColumn="itemno" DataSetColumn="itemno" />
+              <Mapping SourceColumn="desc" DataSetColumn="desc" />
+              <Mapping SourceColumn="qty" DataSetColumn="qty" />
+              <Mapping SourceColumn="stockunit" DataSetColumn="stockunit" />
+              <Mapping SourceColumn="TypeOfPre" DataSetColumn="TypeOfPre" />
+              <Mapping SourceColumn="TypeOfPost" DataSetColumn="TypeOfPost" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DailyVisit" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DailyVisit" msprop:Generator_UserDSName="DailyVisit">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="v_daily" msprop:Generator_TableClassName="v_dailyDataTable" msprop:Generator_TableVarName="tablev_daily" msprop:Generator_TablePropName="v_daily" msprop:Generator_RowDeletingName="v_dailyRowDeleting" msprop:Generator_RowChangingName="v_dailyRowChanging" msprop:Generator_RowEvHandlerName="v_dailyRowChangeEventHandler" msprop:Generator_RowDeletedName="v_dailyRowDeleted" msprop:Generator_UserTableName="v_daily" msprop:Generator_RowChangedName="v_dailyRowChanged" msprop:Generator_RowEvArgName="v_dailyRowChangeEvent" msprop:Generator_RowClassName="v_dailyRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="docno" msprop:Generator_ColumnVarNameInTable="columndocno" msprop:Generator_ColumnPropNameInRow="docno" msprop:Generator_ColumnPropNameInTable="docnoColumn" msprop:Generator_UserColumnName="docno" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="actualdate" msprop:Generator_ColumnVarNameInTable="columnactualdate" msprop:Generator_ColumnPropNameInRow="actualdate" msprop:Generator_ColumnPropNameInTable="actualdateColumn" msprop:Generator_UserColumnName="actualdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="saleid" msprop:Generator_ColumnVarNameInTable="columnsaleid" msprop:Generator_ColumnPropNameInRow="saleid" msprop:Generator_ColumnPropNameInTable="saleidColumn" msprop:Generator_UserColumnName="saleid" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="salename" msprop:Generator_ColumnVarNameInTable="columnsalename" msprop:Generator_ColumnPropNameInRow="salename" msprop:Generator_ColumnPropNameInTable="salenameColumn" msprop:Generator_UserColumnName="salename" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IsNewCust" msprop:Generator_ColumnVarNameInTable="columnIsNewCust" msprop:Generator_ColumnPropNameInRow="IsNewCust" msprop:Generator_ColumnPropNameInTable="IsNewCustColumn" msprop:Generator_UserColumnName="IsNewCust" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="customerid" msprop:Generator_ColumnVarNameInTable="columncustomerid" msprop:Generator_ColumnPropNameInRow="customerid" msprop:Generator_ColumnPropNameInTable="customeridColumn" msprop:Generator_UserColumnName="customerid" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="customername" msprop:Generator_ColumnVarNameInTable="columncustomername" msprop:Generator_ColumnPropNameInRow="customername" msprop:Generator_ColumnPropNameInTable="customernameColumn" msprop:Generator_UserColumnName="customername" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="districtname" msprop:Generator_ColumnVarNameInTable="columndistrictname" msprop:Generator_ColumnPropNameInRow="districtname" msprop:Generator_ColumnPropNameInTable="districtnameColumn" msprop:Generator_UserColumnName="districtname" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="provincename" msprop:Generator_ColumnVarNameInTable="columnprovincename" msprop:Generator_ColumnPropNameInRow="provincename" msprop:Generator_ColumnPropNameInTable="provincenameColumn" msprop:Generator_UserColumnName="provincename" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="remark" msprop:Generator_ColumnVarNameInTable="columnremark" msprop:Generator_ColumnPropNameInRow="remark" msprop:Generator_ColumnPropNameInTable="remarkColumn" msprop:Generator_UserColumnName="remark" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="item" msprop:Generator_ColumnVarNameInTable="columnitem" msprop:Generator_ColumnPropNameInRow="item" msprop:Generator_ColumnPropNameInTable="itemColumn" msprop:Generator_UserColumnName="item" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="type" msprop:Generator_ColumnVarNameInTable="columntype" msprop:Generator_ColumnPropNameInRow="type" msprop:Generator_ColumnPropNameInTable="typeColumn" msprop:Generator_UserColumnName="type" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="itemno" msprop:Generator_ColumnVarNameInTable="columnitemno" msprop:Generator_ColumnPropNameInRow="itemno" msprop:Generator_ColumnPropNameInTable="itemnoColumn" msprop:Generator_UserColumnName="itemno" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="desc" msprop:Generator_ColumnVarNameInTable="columndesc" msprop:Generator_ColumnPropNameInRow="desc" msprop:Generator_ColumnPropNameInTable="descColumn" msprop:Generator_UserColumnName="desc" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="200" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="qty" msprop:Generator_ColumnVarNameInTable="columnqty" msprop:Generator_ColumnPropNameInRow="qty" msprop:Generator_ColumnPropNameInTable="qtyColumn" msprop:Generator_UserColumnName="qty" type="xs:decimal" minOccurs="0" />
+              <xs:element name="stockunit" msprop:Generator_ColumnVarNameInTable="columnstockunit" msprop:Generator_ColumnPropNameInRow="stockunit" msprop:Generator_ColumnPropNameInTable="stockunitColumn" msprop:Generator_UserColumnName="stockunit" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TypeOfPre" msprop:Generator_ColumnVarNameInTable="columnTypeOfPre" msprop:Generator_ColumnPropNameInRow="TypeOfPre" msprop:Generator_ColumnPropNameInTable="TypeOfPreColumn" msprop:Generator_UserColumnName="TypeOfPre" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TypeOfPost" msprop:Generator_ColumnVarNameInTable="columnTypeOfPost" msprop:Generator_ColumnPropNameInRow="TypeOfPost" msprop:Generator_ColumnPropNameInTable="TypeOfPostColumn" msprop:Generator_UserColumnName="TypeOfPost" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

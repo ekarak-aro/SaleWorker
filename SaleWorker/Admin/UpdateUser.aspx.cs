@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace SaleWorker.Admin
 {
-    public partial class UpdateUser : System.Web.UI.Page
+    public partial class UpdateUser : SessionCheck
     {
         private String strConnString = ConfigurationManager.ConnectionStrings["conString"].ConnectionString;
         private String strConnStringAccpac = ConfigurationManager.ConnectionStrings["conAccpac"].ConnectionString;
@@ -322,7 +322,7 @@ namespace SaleWorker.Admin
                                 cmd.ExecuteNonQuery();
                             }
                         }
-                        MessageBox("Add data complete");
+                        MessageBox("update data complete");
 
                         //This one call clear method to clear all control values
                         clear();

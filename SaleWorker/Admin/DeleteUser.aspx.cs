@@ -13,7 +13,7 @@ using SaleWorker.ObjectClass;
 
 namespace SaleWorker.Admin
 {
-    public partial class DeleteUser : System.Web.UI.Page
+    public partial class DeleteUser : SessionCheck
     {
         private String strConnString = ConfigurationManager.ConnectionStrings["conString"].ConnectionString;
         private String strConnStringAccpac = ConfigurationManager.ConnectionStrings["conAccpac"].ConnectionString;

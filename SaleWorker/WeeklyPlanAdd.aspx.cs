@@ -12,7 +12,7 @@ using SaleWorker.ObjectClass;
 
 namespace SaleWorker
 {
-    public partial class WeeklyPlanAdd : System.Web.UI.Page
+    public partial class WeeklyPlanAdd  : SessionCheck
     {
         private String strConnString = ConfigurationManager.ConnectionStrings["conString"].ConnectionString;
         private String strConnStringAccpac = ConfigurationManager.ConnectionStrings["conAccpac"].ConnectionString;

@@ -13,7 +13,7 @@ using Microsoft.Reporting.WebForms;
 
 namespace SaleWorker
 {
-    public partial class WeeklyPlanReport : System.Web.UI.Page
+    public partial class WeeklyPlanReport : SessionCheck
     {
         private String strConnString = ConfigurationManager.ConnectionStrings["conString"].ConnectionString;
         private String strConnStringAccpac = ConfigurationManager.ConnectionStrings["conAccpac"].ConnectionString;
@@ -206,6 +206,8 @@ namespace SaleWorker
 
                 //To Export all pages
                 gvItem.AllowPaging = false;
+                gvItem.DataSource = ViewState["tableSearchitem"];
+                gvItem.DataBind();
                 //this.BindGrid();
 
                 gvItem.HeaderRow.BackColor = Color.White;
