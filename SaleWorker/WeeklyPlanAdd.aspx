@@ -69,7 +69,7 @@
                             <div class="form-group">
                                 <div class="col-sm-6">
                                     <label class="control-label">จังหวัด :</label>
-                                    <asp:DropDownList ID="ddlNewProvince" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlNewProvince_SelectedIndexChanged" ></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlNewProvince" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlNewProvince_SelectedIndexChanged"></asp:DropDownList>
                                 </div>
                                 <div class="col-sm-6">
                                     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
@@ -148,9 +148,9 @@
                                         PagerSettings-Position="TopAndBottom" PagerSettings-Mode="NumericFirstLast" OnPageIndexChanging="gvCustomer_PageIndexChanging" OnRowCommand="gvCustomer_RowCommand">
                                         <Columns>
                                             <asp:BoundField DataField="idcust" HeaderText="ID Customer" />
-                                            <asp:BoundField DataField="namecust" HeaderText="Name customer" />                                            
-                                            <asp:BoundField DataField="namecity" HeaderText="Name customer" />   
-                                            <asp:BoundField DataField="codestte" HeaderText="Name customer" />   
+                                            <asp:BoundField DataField="namecust" HeaderText="Name customer" />
+                                            <asp:BoundField DataField="namecity" HeaderText="Name customer" />
+                                            <asp:BoundField DataField="codestte" HeaderText="Name customer" />
                                             <asp:TemplateField HeaderText="Select Data">
                                                 <ItemTemplate>
                                                     <asp:Button ID="btSelectDataCustomer" runat="server" Text="Select" CommandName="select" class="btn btn-info" />
@@ -203,29 +203,30 @@
         <div style="text-align: center">
             <asp:Button ID="btAdd" runat="server" Text="Add Data" CssClass="btn btn-info" OnClick="btAdd_Click" />
             <button type="button" class="btn btn-default" id="btClear">
-                <span class="glyphicon glyphicon-remove"></span>Clear</button>
+                <span class="glyphicon glyphicon-remove"></span>Clear</button>            
         </div>
+       
     </form>
     <script type="text/javascript">
-        $(document).ready(function () {            
+        $(document).ready(function () {
             $("#ddlTypeCust").change(function () {
                 if ($("#ddlTypeCust").val() == 1) {
                     $("#ddlProvince").prop("disabled", true);
                     $("#ddlProvince").prop("selectedIndex", 0);
                     $("#ddlDistrict").prop("disabled", true);
-                    $("#ddlProvince").prop("selectedIndex", 0);                                                      
+                    $("#ddlProvince").prop("selectedIndex", 0);
                     $("#btNewCustt").hide();
                 } else if ($("#ddlTypeCust").val() == 2) {
                     $("#btNewCustt").show();
                     $("#ddlProvince").prop("disabled", true);
                     $("#ddlProvince").prop("selectedIndex", 0);
                     $("#ddlDistrict").prop("disabled", true);
-                    $("#ddlProvince").prop("selectedIndex", 0);                    
-                    $("#lbCustomer").html("Customer Desc");                    
+                    $("#ddlProvince").prop("selectedIndex", 0);
+                    $("#lbCustomer").html("Customer Desc");
                     $("#tbCustId").val("");
                 }
                 //alert(typeval);
-            });           
+            });
             //$("#btSelectDataCustomer").click(function () {
             //    $("#ddlProvince").prop("disabled", true);
             //    $("#ddlDistrict").prop("disabled", true);
@@ -245,8 +246,7 @@
                 $("#lbCustomer").html("Customer Desc");
                 $("#lbCustomer").css('color', "black");
                 $("#tbRemark").val("");
-            });
-
+            });            
         });
     </script>
 </asp:Content>

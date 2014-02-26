@@ -12,7 +12,7 @@ using SaleWorker.ObjectClass;
 
 namespace SaleWorker
 {
-    public partial class WeeklyPlanAdd  : SessionCheck
+    public partial class WeeklyPlanAdd : SessionCheck
     {
         private String strConnString = ConfigurationManager.ConnectionStrings["conString"].ConnectionString;
         private String strConnStringAccpac = ConfigurationManager.ConnectionStrings["conAccpac"].ConnectionString;
@@ -273,7 +273,7 @@ namespace SaleWorker
                         tbCustId.Enabled = false;
                         ddlProvince.Enabled = false;
                         ddlDistrict.Enabled = false;
-                        
+
 
                         tbNewCustName.Text = null;
                         ddlNewDistrict.SelectedIndex = 0;
@@ -291,7 +291,7 @@ namespace SaleWorker
                     dr.Close();
                 }
             }
-        }        
+        }
 
         protected void btAdd_Click(object sender, EventArgs e)
         {
@@ -325,7 +325,7 @@ namespace SaleWorker
                     return;
                 }
             }
-            
+
 
             Page.Validate();
             if (Page.IsValid)
@@ -367,7 +367,7 @@ namespace SaleWorker
                             cmd.Parameters.Add("@Remark", SqlDbType.NVarChar).Value = tbRemark.Text;
                             cmd.Parameters.Add("@Isapprove", SqlDbType.NVarChar).Value = "NO";
                             conn.Open();
-                            cmd.ExecuteNonQuery();                           
+                            cmd.ExecuteNonQuery();
                             msgbx("add data complete");
                             ClearData();
                         }
@@ -451,7 +451,7 @@ namespace SaleWorker
             gvCustomer.PageIndex = e.NewPageIndex;
             //gvCustomer.SelectedIndex = -1;
             gvCustomer.DataSource = ViewState["tableSearcust"];
-            gvCustomer.DataBind();  
+            gvCustomer.DataBind();
         }
 
         protected void gvCustomer_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -519,7 +519,8 @@ namespace SaleWorker
             }
         }
 
-        
+      
+
 
 
     }
